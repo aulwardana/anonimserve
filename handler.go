@@ -38,7 +38,7 @@ func MainHome(w http.ResponseWriter, r *http.Request) {
 }
 
 func uploadHandler(w http.ResponseWriter, r *http.Request) {
-	var templatefile = template.Must(template.ParseFiles("templates/index.html"))
+	var templatefile = template.Must(template.ParseFiles("upload.html"))
 	templatefile.Execute(w, "index.html")
 }
 
@@ -71,21 +71,21 @@ func RemoveContents(dir string) error {
 
 func UploadFile(w http.ResponseWriter, r *http.Request) {
 
-	data1, err := ioutil.ReadFile("./anonim1/tor.url")
+	data1, err := ioutil.ReadFile("/home/g23516033/anonimserve/anonim1/tor.url")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	url1 := string(data1)
 
-	data2, err := ioutil.ReadFile("./anonim2/tor.url")
+	data2, err := ioutil.ReadFile("/home/g23516033/anonimserve/anonim2/tor.url")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	url2 := string(data2)
 
-	data3, err := ioutil.ReadFile("./anonim3/tor.url")
+	data3, err := ioutil.ReadFile("/home/g23516033/anonimserve/anonim3/tor.url")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -94,7 +94,7 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 
 	var m1 = [3][2]string{{"anonim1/upload", url1}, {"anonim2/upload", url2}, {"anonim3/upload", url3}}
 	i := rand.Intn(3)
-	dirName := fmt.Sprintf("./%s/", m1[i][0])
+	dirName := fmt.Sprintf("/home/g23516033/anonimserve/%s/", m1[i][0])
 	urlName := fmt.Sprintf("%s.onion", m1[i][1])
 
 	err = RemoveContents(dirName)
