@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"html/template"
 	"io"
 	"io/ioutil"
 	"log"
@@ -18,6 +17,26 @@ const (
 	GET  string = "GET"
 	POST string = "POST"
 )
+
+const UploadForm = `
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Disini</title>
+</head>
+<body>
+<div class="container">
+    <h1>Upload Disini</h1>
+    <form method="post" action="/anonim/" enctype="multipart/form-data">
+        <fieldset>
+            <input type="file" name="upload_files" id="upload_files" multiple="multiple">
+            <input type="submit" name="submit" value="upload">
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>
+`
 
 func Route(r *mux.Router, path string, handler func(http.ResponseWriter, *http.Request), method string) {
 	r.HandleFunc(path, handler).Methods(method)
@@ -38,8 +57,7 @@ func MainHome(w http.ResponseWriter, r *http.Request) {
 }
 
 func uploadHandler(w http.ResponseWriter, r *http.Request) {
-	var templatefile = template.Must(template.ParseFiles("upload.html"))
-	templatefile.Execute(w, "index.html")
+	fmt.Fprintf(w, UploadForm)
 }
 
 func redirectToErrorPage(w http.ResponseWriter, r *http.Request) {
