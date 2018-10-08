@@ -13,5 +13,5 @@ func main() {
 	Route(r, "/upload/", uploadHandler, GET)
 	Route(r, "/anonim/", UploadFile, POST)
 
-	Run(r, "localhost", 8080)
+	Run(r, "127.0.0.1", 8080)
 }
